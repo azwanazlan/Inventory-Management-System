@@ -1,6 +1,4 @@
-const { request } = require('express');
 const Item = require('../Models/Item');
-
 
 exports.getAllItems = async (req, res) => {
     try {
@@ -40,6 +38,33 @@ exports.createAnItem = async (req, res) => {
     }
 };
 
+exports.updateAnItem = async (req, res) => {
+  const ItemId = req.params.id;
+  const { name, price, quantity, description, category} = req.body;
+
+  try {
+    const item = await Item.findByPk(ItemId);
+    
+    if(!ItemId) {
+      return res.status(404).json({
+        message: 'Not found'
+      });
+    }
+
+    item.name = name;
+    item.price = price;
+    item.quantity = quantity;
+    item.description = description;
+    item.category = category;
+    
+    await item.save();
+
+    res.status(200).json({item});
+  } catch(err) {
+    return res.status(500).json({ message: 'Failed to update item.' });
+  }
+};
+
 exports.deleteItem = async (req, res) => {
   const itemId = req.params.id;
 
@@ -54,7 +79,7 @@ exports.deleteItem = async (req, res) => {
     }
     await item.destroy();
 
-    res.status(200).json({
+    res.status(204).json({
       message: `Item with id:${itemId} was deleted.`,
     });
   

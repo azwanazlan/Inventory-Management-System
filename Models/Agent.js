@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const {sequelize} = require('../Services/db');
 
-const Agent = sequelize.define('Agent', {
+const Agent = sequelize.define('Agents', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,

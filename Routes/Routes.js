@@ -8,7 +8,13 @@ const agentController = require('../Controller/AgentController');
 //GET ALL ITEMS
 router.get('/items', itemController.getAllItems);
 
-router.delete('/items/:id', itemController.deleteItem)
+router.get('/items/:id', itemController.getItembyId);
+
+router.post('/items', itemController.createAnItem);
+
+router.patch('/items/:id', itemController.updateAnItem);
+
+router.delete('/items/:id', itemController.deleteItem);
 
 router.get('/employee', employeeController.getAllItems);
 
