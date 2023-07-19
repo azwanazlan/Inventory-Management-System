@@ -1,17 +1,17 @@
-const express = require('express');
 const Item = require('../Models/Item');
 
-exports.getAllItems = async (req, res) => {
+
+const getAllItems = async (req, res) => {
     try {
-      const items = await Item.find();
+      const items = await Item.findAll();
       res.json(items);
     } catch (err) {
       res.status(500).json({ message: 'Failed to fetch products'});
     }
   };
 
-exports.getItembyId = async (req, res) => {
-    const itemId = req.params.id
+const getItembyId = async (req, res) => {
+    const itemId = req.params
     try {
     const itemById = await Item.findByPk(itemId);
     res.json(itemById);
@@ -20,7 +20,7 @@ exports.getItembyId = async (req, res) => {
     }
   };
 
-exports.createProduct = async (req, res) => {
+const createAnItem = async (req, res) => {
     const { name, price, quantity, description, category } = req.body;
   
     try {
@@ -38,10 +38,20 @@ exports.createProduct = async (req, res) => {
     }
 };
 
-exports.deleteProduct = async (req, res) => {
+const deleteItem = async (req, res) => {
   const itemId = req.params.id;
 
   try {
-    const item = await Item.destroy;
+    const item = await Item.destroy(itemId);
+    res.status(200).json({message: 'item with id:${itemId} was deleted...'});
+  } catch(err){
+    res.status(500).json({ message: 'Failed to create product'});
   }
+};
+
+module.exports = {
+  getAllItems,
+  getItembyId,
+  createAnItem,
+  deleteItem
 }

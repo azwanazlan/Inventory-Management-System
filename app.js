@@ -2,6 +2,7 @@ const express = require("express");
 const {testDatabaseConnection} = require('./Services/db');
 const app = express();
 const port = 3000;
+const router = require('./Routes/Routes');
 
 app.use(express.json());
 app.use(
@@ -10,11 +11,7 @@ app.use(
     })
 );
 
-app.get("/" , (req, res) => {
-    res.json({
-        message : "OK"
-    });
-});
+app.use('/',router);
 
 testDatabaseConnection()
   .then(() => {
