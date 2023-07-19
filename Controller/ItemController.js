@@ -1,7 +1,5 @@
 const express = require('express');
-const Product = require('');
 const Item = require('../Models/Item');
-const router = express.Router();
 
 exports.getAllItems = async (req, res) => {
     try {
@@ -13,10 +11,10 @@ exports.getAllItems = async (req, res) => {
   };
 
 exports.getItembyId = async (req, res) => {
-    const itemId = req.params.itemId;
+    const itemId = req.params.id
     try {
     const itemById = await Item.findByPk(itemId);
-    res.json(itemId);
+    res.json(itemById);
     } catch (err) {
       res.status(500).json({ message: 'Failed to fetch products'});
     }
@@ -39,3 +37,11 @@ exports.createProduct = async (req, res) => {
       res.status(500).json({ message: 'Failed to create product' });
     }
 };
+
+exports.deleteProduct = async (req, res) => {
+  const itemId = req.params.id;
+
+  try {
+    const item = await Item.destroy;
+  }
+}
