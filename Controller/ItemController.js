@@ -1,7 +1,8 @@
+const { request } = require('express');
 const Item = require('../Models/Item');
 
 
-const getAllItems = async (req, res) => {
+exports.getAllItems = async (req, res) => {
     try {
       const items = await Item.findAll();
       res.json(items);
@@ -10,8 +11,9 @@ const getAllItems = async (req, res) => {
     }
   };
 
-const getItembyId = async (req, res) => {
-    const itemId = req.params
+exports.getItembyId = async (req, res) => {
+    const itemId = req.params.id
+    
     try {
     const itemById = await Item.findByPk(itemId);
     res.json(itemById);
@@ -20,7 +22,7 @@ const getItembyId = async (req, res) => {
     }
   };
 
-const createAnItem = async (req, res) => {
+exports.createAnItem = async (req, res) => {
     const { name, price, quantity, description, category } = req.body;
   
     try {
@@ -38,20 +40,27 @@ const createAnItem = async (req, res) => {
     }
 };
 
-const deleteItem = async (req, res) => {
+exports.deleteItem = async (req, res) => {
   const itemId = req.params.id;
 
   try {
-    const item = await Item.destroy(itemId);
-    res.status(200).json({message: 'item with id:${itemId} was deleted...'});
-  } catch(err){
-    res.status(500).json({ message: 'Failed to create product'});
+
+    const item = await Item.findByPk(itemId);
+
+    if (!item) {
+      return res.status(404).json({
+        message: 'Item not found.',
+      });
+    }
+    await item.destroy();
+
+    res.status(200).json({
+      message: `Item with id:${itemId} was deleted.`,
+    });
+  
+  } catch (err) {
+    res.status(500).json({
+      message: `Failed to delete product:${err}`,
+    });
   }
 };
-
-module.exports = {
-  getAllItems,
-  getItembyId,
-  createAnItem,
-  deleteItem
-}

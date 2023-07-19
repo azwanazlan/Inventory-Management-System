@@ -28,9 +28,8 @@ sequelize.sync()
         description: 'Sample product 2',
         category: 'Category 2',
       },
-      // Add more sample data as needed
     ]);
-
+   // Generate sample data and add it to the 'Employee' table
     await Employee.bulkCreate([
       {
         firstName: 'Michael',
@@ -41,7 +40,7 @@ sequelize.sync()
         lastName: 'Brown',
       },
     ]);
-
+   // Generate sample data and add it to the 'Agent' table
     await Agent.bulkCreate([
       {
         firstName: 'John',
