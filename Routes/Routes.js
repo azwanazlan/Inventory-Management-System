@@ -18,6 +18,12 @@ router.delete('/items/:id', itemController.deleteItem);
 
 router.get('/employee', employeeController.getAllItems);
 
-//router.get('/agent', agentController.);
+router.get('/employee/:id', employeeController.getEmployeeById);
+
+router.post('/employee', employeeController.createAnEmployee);
+
+router.patch('/employee/:id', employeeController.updateAnEmployee);
+
+router.delete('/employee/:id', employeeController.deleteAnEmployee);
 
 module.exports = router;

@@ -6,14 +6,14 @@ const sequelize = new Sequelize('inventory_management_system', 'root', null , {
 });
 
 //Test the database connection
-async function testDatabaseConnection() {
-    try {
-      await sequelize.authenticate();
-      console.log('Connected to the database');
-    } catch (error) {
-      console.error('Error connecting to the database:', error);
-    }
+const testDatabaseConnection = async() => {
+  try {
+    await sequelize.authenticate();
+    console.log('Connected to the database');
+  } catch (error) {
+    console.error('Error connecting to the database:', error);
   }
+}
 
 module.exports = {
     sequelize,

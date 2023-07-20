@@ -5,7 +5,7 @@ exports.getAllItems = async (req, res) => {
       const items = await Item.findAll();
       res.json(items);
     } catch (err) {
-      res.status(500).json({ message: 'Failed to fetch products'});
+      res.status(500).json({ message: 'Failed to fetch items'});
     }
   };
 
@@ -16,7 +16,7 @@ exports.getItembyId = async (req, res) => {
     const itemById = await Item.findByPk(itemId);
     res.json(itemById);
     } catch (err) {
-      res.status(500).json({ message: 'Failed to fetch products'});
+      res.status(500).json({ message: 'Failed to fetch item'});
     }
   };
 
@@ -34,7 +34,7 @@ exports.createAnItem = async (req, res) => {
   
       res.status(201).json(item);
     } catch (err) {
-      res.status(500).json({ message: 'Failed to create product' });
+      res.status(500).json({ message: 'Failed to create item' });
     }
 };
 
@@ -45,9 +45,9 @@ exports.updateAnItem = async (req, res) => {
   try {
     const item = await Item.findByPk(ItemId);
     
-    if(!ItemId) {
+    if(!item) {
       return res.status(404).json({
-        message: 'Not found'
+        message: 'Item not found'
       });
     }
 
@@ -59,7 +59,7 @@ exports.updateAnItem = async (req, res) => {
     
     await item.save();
 
-    res.status(200).json({item});
+    res.status(200).json(item);
   } catch(err) {
     return res.status(500).json({ message: 'Failed to update item.' });
   }
@@ -85,7 +85,7 @@ exports.deleteItem = async (req, res) => {
   
   } catch (err) {
     res.status(500).json({
-      message: `Failed to delete product:${err}`,
+      message: `Failed to delete item: ${err}`,
     });
   }
 };

@@ -1,6 +1,6 @@
 const express = require("express");
-const {testDatabaseConnection} = require('./Services/db');
 const app = express();
+const {testDatabaseConnection} = require('./Services/db');
 const port = 3000;
 const router = require('./Routes/Routes');
 
@@ -11,7 +11,7 @@ app.use(
     })
 );
 
-app.use('/',router);
+app.use('/', router);
 
 testDatabaseConnection()
   .then(() => {
